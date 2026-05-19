@@ -37,5 +37,5 @@ private:
     //! Хеш-функция
     size_t hash_function(const KeyType &key) const; 
 
-    void rehash;
+    void rehash();
 };
