@@ -1,6 +1,6 @@
 #pragma once
-#include "Vecctor.h"
-#include "List.h"
+#include <vector>
+#include <list>
 #include <string>
 #include <utility>
 
@@ -32,16 +32,10 @@ private:
     int32_t _capacity;  //!< Вместимость хеш-таблицы
     int32_t _filled;    //!< Текущее количество занятых ячеек хеш-таблицы
 
-    //! Структура, на которой основана таблица с методом цепочек для решения коллизий
-    Vector table;
+     //! Структура, на которой основана таблица с методом цепочек для решения коллизий
+    std::vector<std::list<std::pair<KeyType, ValueType>>> table;
     //! Хеш-функция
     size_t hash_function(const KeyType &key) const; 
-
-    struct Pair {
-	    KeyType key;
-	    ValueType value;
-	    Pair(const KeyType &k, const ValueType &v) : key(k), value(v) {}
-    };
 
     void rehash;
 };
