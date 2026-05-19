@@ -1,7 +1,7 @@
 .PHONY: all clean run
 
 TEST=hash_test
-LIBTEST=HashTableTest
+LIBTEST=HashTest
 
 all: $(TEST)
 
