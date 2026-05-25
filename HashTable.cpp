@@ -13,9 +13,10 @@ HashTable::~HashTable()
 }
 size_t HashTable::hash_function(const KeyType &key) const
 {
+    const size_t P = 4000000000;
     size_t hash = 0;
     for (char c : key) {
-        hash = hash * 31 + static_cast<size_t>(c);
+        hash = (hash * 31 + static_cast<size_t>(c)) % P;
     }
     return hash % _capacity;
 }
