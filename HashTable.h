@@ -9,6 +9,12 @@ using ValueType = double;
 
 class HashTable 
 {
+
+enum class HashMethod {
+       Div,
+       Mul
+};       
+
 public:
     //! Конструктор
     explicit HashTable(size_t size = 100) noexcept;
@@ -26,7 +32,7 @@ public:
     ValueType& operator[](const KeyType &key);
 
     //! Загрузка хеш-таблицы. Считается как отношение количества занятых ячеек к вместимости хеш-таблицы.
-    double getLoadFactor();
+    double getLoadFactor(); 
 
 private:
     int32_t _capacity;  //!< Вместимость хеш-таблицы
@@ -35,7 +41,10 @@ private:
      //! Структура, на которой основана таблица с методом цепочек для решения коллизий
     std::vector<std::list<std::pair<KeyType, ValueType>>> table;
     //! Хеш-функция
-    size_t hash_function(const KeyType &key) const; 
-
+    size_t hash_function(const KeyType &key) const;
+    size_t hash_div(const KeyType &key, size_t m) const;
+    size_t hash_mul(const KeyType &key, size_t m) const;
+    
+    HashMethod _met;	
     void rehash();
 };

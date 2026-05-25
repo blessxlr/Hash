@@ -8,15 +8,16 @@ HashTable::HashTable(size_t size) noexcept
       table(_capacity)
 {
 }
+
 HashTable::~HashTable()
 {
 }
+
 size_t HashTable::hash_function(const KeyType &key) const
 {
-    const size_t P = 4000000000;
     size_t hash = 0;
     for (char c : key) {
-        hash = (hash * 31 + static_cast<size_t>(c)) % P;
+        hash = hash * 31 + static_cast<size_t>(c);
     }
     return hash % _capacity;
 }
@@ -32,6 +33,7 @@ bool HashTable::find(const KeyType &key, ValueType &value) const
     }
     return false;
 }
+
 void HashTable::remove(const KeyType &key)
 {
     size_t index = hash_function(key);
@@ -53,7 +55,10 @@ ValueType& HashTable::operator[](const KeyType &key)
             return pair.second;
         }
     }
+    
     insert(key, 0.0);
+    
+    // После вставки мог произойти rehash, ищем снова
     index = hash_function(key);
     for (auto &pair : table[index]) {
         if (pair.first == key) {
